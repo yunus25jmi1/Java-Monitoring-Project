@@ -4,18 +4,18 @@
 	<parent>
 		<groupId>org.springframework.boot</groupId>
 		<artifactId>spring-boot-starter-parent</artifactId>
-		<version>2.4.4</version>
+		<version>3.2.0</version>
 		<relativePath /> <!-- lookup parent from repository -->
 	</parent>
 
 	<groupId>io.benco</groupId>
 	<artifactId>java-demoapp</artifactId>
-	<version>${app.version}</version>
+	<version>1.0.0</version>
 	<name>java-demoapp</name>
 	<description>Demo project for Spring Boot</description>
 
 	<properties>
-		<java.version>11</java.version>
+		<java.version>21</java.version>
 	</properties>
 
 	<dependencies>
@@ -46,25 +46,15 @@
 		<!-- App Insights -->
 		<dependency>
 			<groupId>com.microsoft.azure</groupId>
-			<artifactId>applicationinsights-spring-boot-starter</artifactId>
-			<version>2.6.0</version>
-		</dependency>
-		<dependency>
-			<groupId>com.microsoft.azure</groupId>
 			<artifactId>applicationinsights-core</artifactId>
-			<version>2.6.0</version>
-		</dependency>
-		<dependency>
-			<groupId>com.microsoft.azure</groupId>
-			<artifactId>applicationinsights-web</artifactId>
 			<version>2.6.0</version>
 		</dependency>
 
 		<!-- Security and Azure AD -->
 		<dependency>
 			<groupId>com.azure.spring</groupId>
-			<artifactId>azure-spring-boot-starter-active-directory</artifactId>
-			<version>3.3.0</version>
+			<artifactId>spring-cloud-azure-starter-active-directory</artifactId>
+			<version>5.8.0</version>
 		</dependency>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
@@ -76,8 +66,8 @@
 		<dependencies>
 			<dependency>
 				<groupId>com.azure.spring</groupId>
-				<artifactId>azure-spring-boot-bom</artifactId>
-				<version>3.2.0</version>
+				<artifactId>spring-cloud-azure-dependencies</artifactId>
+				<version>5.8.0</version>
 				<type>pom</type>
 				<scope>import</scope>
 			</dependency>

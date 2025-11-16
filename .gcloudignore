@@ -1,0 +1,44 @@
+# This file specifies files that should *not* be uploaded to Google Cloud
+# Standard ignored files
+.gcloudignore
+.git
+.gitignore
+
+# Build artifacts
+target/
+*.jar
+*.war
+*.ear
+
+# IDE files
+.idea/
+*.iml
+.vscode/
+.settings/
+.classpath
+.project
+
+# Maven wrapper
+.mvn/
+
+# Test files
+src/test/
+
+# Documentation
+README.md
+LICENSE
+
+# CI/CD files
+.github/
+
+# Docker (not needed if using Cloud Build)
+# Dockerfile
+
+# Local environment files
+*.log
+.env
+.env.local
+
+# OS files
+.DS_Store
+Thumbs.db

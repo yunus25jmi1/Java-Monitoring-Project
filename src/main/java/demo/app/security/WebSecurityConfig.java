@@ -1,36 +1,43 @@
 package demo.app.security;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
-import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.oauth2.client.oidc.userinfo.OidcUserRequest;
 import org.springframework.security.oauth2.client.userinfo.OAuth2UserService;
 import org.springframework.security.oauth2.core.oidc.user.OidcUser;
+import org.springframework.security.web.SecurityFilterChain;
 
+@Configuration
 @EnableWebSecurity
-@EnableGlobalMethodSecurity(prePostEnabled = true)
-public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
+@EnableMethodSecurity(prePostEnabled = true)
+public class WebSecurityConfig {
 
   @Autowired(required = false)
   private OAuth2UserService<OidcUserRequest, OidcUser> oidcUserService;
 
-  @Override
-  protected void configure(HttpSecurity http) throws Exception {
+  @Bean
+  public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
     if (oidcUserService != null) {
       http
-          .authorizeRequests()
-          .antMatchers("/user").authenticated()
-          .antMatchers("/**").permitAll()
-          .and()
-          .oauth2Login()
-          .userInfoEndpoint()
-          .oidcUserService(oidcUserService);
+          .authorizeHttpRequests(authz -> authz
+              .requestMatchers("/user").authenticated()
+              .requestMatchers("/**").permitAll()
+          )
+          .oauth2Login(oauth2 -> oauth2
+              .userInfoEndpoint(userInfo -> userInfo
+                  .oidcUserService(oidcUserService)
+              )
+          );
     } else {
       http
-          .authorizeRequests()
-          .antMatchers("/**").permitAll();
+          .authorizeHttpRequests(authz -> authz
+              .requestMatchers("/**").permitAll()
+          );
     }
+    return http.build();
   }
 }
